@@ -115,13 +115,13 @@ def validate_processed_data(failures: list[str]) -> tuple[pd.DataFrame, pd.DataF
 
 
 def validate_summary_files(train_df: pd.DataFrame, val_df: pd.DataFrame, test_df: pd.DataFrame, failures: list[str]) -> None:
-    summary = json.loads((PROJECT_ROOT / "outputs/dataset_summary.json").read_text(encoding="utf-8"))
+    summary = json.loads((PROJECT_ROOT / "outputs/reports/dataset_summary.json").read_text(encoding="utf-8"))
     check("n_processed_columns" in summary, "Dataset summary reports n_processed_columns.", failures)
     check("n_model_input_features_baseline" in summary, "Dataset summary reports baseline input-feature count.", failures)
     check(summary["n_processed_columns"] == len(train_df.columns), "Dataset summary matches processed-column count.", failures)
     check(summary["n_model_input_features_baseline"] == len(get_baseline_tabular_feature_columns()), "Dataset summary matches baseline model feature count.", failures)
 
-    best_model = json.loads((PROJECT_ROOT / "outputs/best_model_summary.json").read_text(encoding="utf-8"))
+    best_model = json.loads((PROJECT_ROOT / "outputs/reports/best_model_summary.json").read_text(encoding="utf-8"))
     required_keys = {
         "overall_validation_best_model",
         "overall_test_best_model",
@@ -134,7 +134,7 @@ def validate_summary_files(train_df: pd.DataFrame, val_df: pd.DataFrame, test_df
 
 
 def validate_metric_files(failures: list[str]) -> pd.DataFrame:
-    baseline_metrics = pd.read_csv(PROJECT_ROOT / "outputs/metrics_baselines.csv")
+    baseline_metrics = pd.read_csv(PROJECT_ROOT / "outputs/evaluation/metrics_baselines.csv")
     check(list(baseline_metrics.columns) == EXPECTED_METRIC_COLUMNS, "Baseline metric schema is correct.", failures)
     metrics = baseline_metrics.copy()
     for column in ["pr_auc", "roc_auc", "precision_at_k", "f1", "precision", "recall", "brier"]:
@@ -199,7 +199,7 @@ def validate_repo_cleanliness(failures: list[str]) -> None:
     model_artifacts = sorted((PROJECT_ROOT / "models").rglob("*.joblib")) if (PROJECT_ROOT / "models").exists() else []
     check(not model_artifacts, "No saved joblib model artifacts remain in the cleaned submission tree.", failures)
     check(not (PROJECT_ROOT / "models/advanced").exists(), "No advanced-model directory remains in the phase-1 repo.", failures)
-    check(not (PROJECT_ROOT / "outputs/metrics_advanced.csv").exists(), "No advanced-metrics file remains in the phase-1 repo.", failures)
+    check(not (PROJECT_ROOT / "outputs/evaluation/metrics_advanced.csv").exists(), "No advanced-metrics file remains in the phase-1 repo.", failures)
     check(not (PROJECT_ROOT / "scripts/03_train_advanced.py").exists(), "No advanced-training script remains in the phase-1 repo.", failures)
     check(not (PROJECT_ROOT / "outputs/explainability/advanced_tabular_permutation.csv").exists(), "No advanced explainability artifact remains in the phase-1 repo.", failures)
 
