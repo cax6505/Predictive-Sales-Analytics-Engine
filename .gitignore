@@ -26,10 +26,10 @@ env/
 .DS_Store
 .AppleDouble
 
-# Model checkpoints (large files — stored in outputs/)
-*.pt
-*.pth
-*.ckpt
+# Model checkpoints — tracked under models/
+# *.pt
+# *.pth
+# *.ckpt
 
 # IDE / editor
 .vscode/
