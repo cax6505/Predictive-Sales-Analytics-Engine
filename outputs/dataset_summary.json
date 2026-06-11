@@ -1,0 +1,18 @@
+{
+  "n_modeling_rows": 52224,
+  "n_processed_columns": 46,
+  "n_model_input_features_baseline": 20,
+  "n_train": 36556,
+  "n_val": 7834,
+  "n_test": 7834,
+  "target_rate_all": 0.017941942401960783,
+  "target_rate_train": 0.018875150454097822,
+  "target_rate_val": 0.015317845289762573,
+  "target_rate_test": 0.016211386264998722,
+  "score_time_min": "2016-10-15",
+  "score_time_max": "2018-03-02",
+  "missing_text_rate": 0.5867608762254901,
+  "average_review_score": 4.175500520773059,
+  "median_total_price": 84.99,
+  "median_delivery_days": 11.062731481481482
+}
