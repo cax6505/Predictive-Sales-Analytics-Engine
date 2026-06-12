@@ -135,7 +135,7 @@ def main():
     val_rows = metrics_df.loc[metrics_df["split"].eq("val")].sort_values("pr_auc", ascending=False)
     test_rows = metrics_df.loc[metrics_df["split"].eq("test")].sort_values("pr_auc", ascending=False)
     
-    # Hardcode the selected final phase-1 model representation directly
+    # Hardcode the selected final baseline model representation directly
     recommended_model = "tabular_rf"
     test_row = metrics_df.loc[
         metrics_df["split"].eq("test") & metrics_df["model"].eq(recommended_model)
@@ -145,7 +145,7 @@ def main():
         "overall_validation_best_model": val_rows.iloc[0]["model"],
         "overall_test_best_model": test_rows.iloc[0]["model"],
         "recommended_model": recommended_model,
-        "recommendation_reason": "Tabular random forest is retained as the phase-1 final model because it is the strongest held-out baseline on PR-AUC while remaining simple, stable, and easy to explain.",
+        "recommendation_reason": "Tabular random forest is retained as the baseline final model because it is the strongest held-out baseline on PR-AUC while remaining simple, stable, and easy to explain.",
         "recommended_model_test_metrics": test_row.to_dict(),
         "n_total_models_evaluated": int(metrics_df["model"].nunique()),
     }

@@ -23,7 +23,6 @@ cells = []
 cells.append(nbf.v4.new_markdown_cell(r"""# 08 — Theoretical Rigor: Mathematical Foundations
 
 **Project**: Predictive Sales Analytics Engine
-**Phase**: 2 (Deep Learning)
 **Rubric Target**: Theoretical Rigor — Level 10 (First-Principles)
 
 > *"Connects the model design to first-principles math (Linear Algebra / Calculus). Discusses the Loss Landscape geometry."*

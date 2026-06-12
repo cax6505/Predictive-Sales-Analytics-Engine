@@ -1,4 +1,4 @@
-"""Generate notebook 09_Phase_Comparison.ipynb using nbformat."""
+"""Generate notebook 09_Model_Comparison.ipynb using nbformat."""
 
 import nbformat as nbf
 
@@ -13,10 +13,10 @@ cells = []
 
 # Cell 0 - markdown
 cells.append(nbf.v4.new_markdown_cell(
-    "# 09 — Phase 1 vs Phase 2 Comparison\n"
+    "# 09 — Baseline ML vs Deep Learning Model Comparison\n"
     "\n"
     "**Project**: Predictive Sales Analytics Engine  \n"
-    "**Objective**: Compare traditional ML baselines (Phase 1) against the deep learning model (Phase 2)\n"
+    "**Objective**: Compare traditional ML baselines against the deep learning model\n"
     "\n"
     "This notebook provides a comprehensive analysis of:\n"
     "1. Metric-by-metric comparison across all models\n"
@@ -29,7 +29,7 @@ cells.append(nbf.v4.new_markdown_cell(
 
 # Cell 1 - markdown
 cells.append(nbf.v4.new_markdown_cell(
-    "## 1. Load Results from Both Phases"
+    "## 1. Load Results from Both Models"
 ))
 
 # Cell 2 - code
@@ -43,11 +43,11 @@ cells.append(nbf.v4.new_code_cell(
     '\n'
     'OUT_DIR = Path("..") / "outputs"\n'
     '\n'
-    '# Phase 1: ML baselines\n'
+    '# Traditional ML baselines\n'
     'baselines = pd.read_csv(OUT_DIR / "metrics_baselines.csv")\n'
     'baselines_test = baselines[baselines["split"] == "test"].copy()\n'
     '\n'
-    '# Phase 2: Deep learning\n'
+    '# Deep learning\n'
     'checkpoint = torch.load(OUT_DIR / "dl_model_checkpoint.pt", weights_only=False)\n'
     'dl_metrics = checkpoint["metrics"]\n'
     'dl_history = checkpoint["history"]\n'
@@ -60,8 +60,8 @@ cells.append(nbf.v4.new_code_cell(
     'except FileNotFoundError:\n'
     '    ablation = {}\n'
     '\n'
-    'print("Phase 1 Models:", baselines_test["model"].tolist())\n'
-    'print(f"Phase 2 Model: RepeatPurchaseNet (best epoch: {dl_best_epoch})")\n'
+    'print("Baseline ML Models:", baselines_test["model"].tolist())\n'
+    'print(f"Deep Learning Model: RepeatPurchaseNet (best epoch: {dl_best_epoch})")\n'
     'print(f"\\nDL Test Metrics: {dl_metrics}")'
 ))
 
@@ -129,10 +129,10 @@ cells.append(nbf.v4.new_code_cell(
     '                f"{val:.4f}", va="center", fontsize=9)\n'
     '    ax.grid(True, alpha=0.3, axis="x")\n'
     '\n'
-    'plt.suptitle("Phase 1 (ML) vs Phase 2 (DL) — Test Set Comparison",\n'
+    'plt.suptitle("Baseline ML vs Deep Learning MLP — Test Set Comparison",\n'
     '             fontsize=14, fontweight="bold", y=1.02)\n'
     'plt.tight_layout()\n'
-    'plt.savefig(OUT_DIR / "phase_comparison.png", dpi=150, bbox_inches="tight")\n'
+    'plt.savefig(OUT_DIR / "model_comparison.png", dpi=150, bbox_inches="tight")\n'
     'plt.show()'
 ))
 
@@ -227,7 +227,7 @@ cells.append(nbf.v4.new_markdown_cell(
     "\n"
     "## 7. Computational Cost Analysis\n"
     "\n"
-    "| Aspect | Phase 1 (Best ML) | Phase 2 (DL) |\n"
+    "| Aspect | Baseline (Best ML) | Deep Learning (MLP) |\n"
     "|--------|-------------------|--------------|\n"
     "| **Training time** | ~5 sec (RF) | ~60 sec (MLP) |\n"
     "| **Inference time** | <1 ms/sample | <1 ms/sample |\n"
@@ -243,14 +243,14 @@ cells.append(nbf.v4.new_markdown_cell(
     "\n"
     "## 8. Final Recommendation\n"
     "\n"
-    "### Primary Model: Gradient Boosting (Phase 1)\n"
+    "### Primary Model: Gradient Boosting (Baseline)\n"
     "For **production deployment**, we recommend the Gradient Boosting model because:\n"
     "1. Slightly better PR-AUC on this dataset size\n"
     "2. Simpler deployment (sklearn, no PyTorch dependency)\n"
     "3. More interpretable for business stakeholders\n"
     "4. Faster training enables rapid iteration\n"
     "\n"
-    "### Secondary Model: RepeatPurchaseNet (Phase 2)\n"
+    "### Secondary Model: RepeatPurchaseNet (Deep Learning)\n"
     "The DL model serves as:\n"
     "1. **Validation**: Confirms that a neural network can learn meaningful patterns from this data\n"
     "2. **Foundation**: Provides a neural backbone for future extensions (entity embeddings, text embeddings, multi-modal fusion)\n"
@@ -264,11 +264,11 @@ cells.append(nbf.v4.new_markdown_cell(
     "\n"
     "---\n"
     "\n"
-    "*Phase comparison complete. Both approaches have merit \u2014 the choice depends on deployment context and future data availability.*"
+    "*Model comparison complete. Both approaches have merit \u2014 the choice depends on deployment context and future data availability.*"
 ))
 
 nb.cells = cells
 
-out_path = "../notebooks/09_Phase_Comparison.ipynb"
+out_path = "../notebooks/09_Model_Comparison.ipynb"
 nbf.write(nb, out_path)
 print(f"Wrote {out_path}")

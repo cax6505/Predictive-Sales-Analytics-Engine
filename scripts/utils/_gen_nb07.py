@@ -96,10 +96,10 @@ cells.append(nbf.v4.new_markdown_cell("""\
 ## 2. Feature Engineering & Heterogeneous Data Handling
 
 ### Numeric Features (43)
-We use the same 43 features as Phase 1: 29 base numeric + 14 engineered domain features.
+We use the same 43 features as the baseline: 29 base numeric + 14 engineered domain features.
 
 ### Categorical Features (4) — Entity Embeddings
-Instead of one-hot encoding or target encoding (used in Phase 1), we learn **entity embeddings** for each categorical feature. Each category is mapped to a dense vector that captures semantic relationships:
+Instead of one-hot encoding or target encoding (used in the baseline model), we learn **entity embeddings** for each categorical feature. Each category is mapped to a dense vector that captures semantic relationships:
 
 | Feature | Categories | Embedding Dim | Rationale |
 |---------|-----------|---------------|-----------|
@@ -117,7 +117,7 @@ This approach handles **heterogeneous data** — numeric and categorical feature
 # ---------------------------------------------------------------------------
 cells.append(nbf.v4.new_code_cell("""\
 def engineer_features(df):
-    \"\"\"Create domain-driven features (same as Phase 1 baseline notebook).\"\"\"
+    \"\"\"Create domain-driven features (same as baseline notebook).\"\"\"
     df = df.copy()
     df["price_per_item"] = df["total_price"] / df["item_count"].clip(lower=1)
     df["freight_pct"] = df["total_freight"] / (df["total_price"] + 1e-8) * 100
@@ -583,9 +583,9 @@ print("=" * 55)"""))
 cells.append(nbf.v4.new_markdown_cell("""\
 ---
 
-## 8. Comparison Against Phase 1 Baselines
+## 8. Comparison Against Traditional ML Baselines
 
-Comparing the DL model against all Phase 1 baselines proves its relative value. Based on the literature (Grinsztajn et al., 2022), tree-based models dominate on medium-sized tabular data, so we aim for **competitive** rather than superior performance."""))
+Comparing the DL model against traditional ML baselines proves its relative value. Based on the literature (Grinsztajn et al., 2022), tree-based models dominate on medium-sized tabular data, so we aim for **competitive** rather than superior performance."""))
 
 # ---------------------------------------------------------------------------
 # Cell 18 — code: baseline comparison table
@@ -603,7 +603,7 @@ for c in display_cols[1:]:
     comp_display[c] = comp_display[c].apply(lambda x: f"{x:.4f}")
 
 print("\\n" + "=" * 90)
-print("  MODEL COMPARISON — Test Set (Phase 1 Baselines vs Phase 2 Deep Learning)")
+print("  MODEL COMPARISON — Test Set (Traditional ML Baselines vs Deep Learning MLP)")
 print("=" * 90)
 print(comp_display.to_string(index=False))
 print("=" * 90)"""))
@@ -997,7 +997,7 @@ cells.append(nbf.v4.new_markdown_cell("""\
 
 4. **Regularization > Architecture complexity**: Consistent with Kadra et al. (2021), proper regularization matters more than architectural novelty for tabular data.
 
-5. **Competitive with tree baselines**: The DL model achieves performance comparable to Phase 1 tree-based models, validating that neural networks can work on this tabular task when properly configured.
+5. **Competitive with tree baselines**: The DL model achieves performance comparable to baseline tree-based models, validating that neural networks can work on this tabular task when properly configured.
 
 6. **Class imbalance remains the core challenge**: With only 1.8% positive rate, all models (ML and DL) face fundamental limitations. The key contribution is demonstrating sound DL methodology, not claiming superiority."""))
 

@@ -2,7 +2,7 @@
   "overall_validation_best_model": "tabular_lr",
   "overall_test_best_model": "tabular_rf",
   "recommended_model": "tabular_rf",
-  "recommendation_reason": "Tabular random forest is retained as the phase-1 final model because it is the strongest held-out baseline on PR-AUC while remaining simple, stable, and easy to explain.",
+  "recommendation_reason": "Tabular random forest is retained as the baseline final model because it is the strongest held-out baseline on PR-AUC while remaining simple, stable, and easy to explain.",
   "recommended_model_test_metrics": {
     "model": "tabular_rf",
     "split": "test",
